@@ -5,6 +5,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -28,20 +30,22 @@ public class GmailSendAndSearch {
         refresh();
         $("#identifierId").setValue(Config.mail);
         $(".CwaK9").click();
-        $(By.name("password")).shouldBe(Condition.visible);
-        $(By.name("password")).setValue(Config.password).pressEnter();
+        $("input[type='password']").setValue(Config.password).pressEnter();
+        //$(".VBgE5b.W0PX5c.LM").shouldBe(visible);
 
+        $(byText("COMPOSE")).is(visible);
         $(byText("COMPOSE")).click();
-        $("#:9k").setValue(Config.mail).pressTab();
-        $("#:93").setValue("test").pressEnter();
+        $("[name='to']").setValue(Config.mail).pressTab();
+        $("[name='subjectbox']").setValue("test").pressEnter();
         $(byText("Send")).click();
 
-        $(".y6 b").$(byText("test")).shouldBe(Condition.visible);
+        //$(".bog").$(byText("test")).shouldBe(visible);
 
-        $(".J-Ke.n0.aBU").click();
-        $(".y6 b").shouldHave(Condition.exactText("test"));
+        $("[title='Sent Mail']").click();
+        $(".bog b").shouldHave(exactText("test"));
 
-        $("#gs_taif50").setValue("subject:test").pressEnter();
+        $(".gstl_50.gstt>tbody>tr>td").click();
+        $("input[id=gs_taif50]").setValue("subject:test").pressEnter();
         $$(".y6").shouldHave(CollectionCondition.size(1));
 
     }
