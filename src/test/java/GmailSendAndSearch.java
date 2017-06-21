@@ -1,6 +1,6 @@
 import com.codeborne.selenide.CollectionCondition;
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selectors;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -22,6 +22,7 @@ public class GmailSendAndSearch {
     }
 
 
+
     @Test
     public void gmailSendAndSearch() {
         open("http://gmail.com/");
@@ -33,20 +34,22 @@ public class GmailSendAndSearch {
         $("input[type='password']").setValue(Config.password).pressEnter();
         //$(".VBgE5b.W0PX5c.LM").shouldBe(visible);
 
+
         $(byText("COMPOSE")).is(visible);
         $(byText("COMPOSE")).click();
+        $("[name='to']").shouldBe(visible);
         $("[name='to']").setValue(Config.mail).pressTab();
         $("[name='subjectbox']").setValue("test").pressEnter();
         $(byText("Send")).click();
 
-        //$(".bog").$(byText("test")).shouldBe(visible);
+        refresh();
+        $(By.name("test")).shouldBe(visible);
 
         $("[title='Sent Mail']").click();
         $(".bog b").shouldHave(exactText("test"));
 
-        $(".gstl_50.gstt>tbody>tr>td").click();
-        $("input[id=gs_taif50]").setValue("subject:test").pressEnter();
-        $$(".y6").shouldHave(CollectionCondition.size(1));
+        $("[name='q']").setValue("subject:test").pressEnter();
+        $$(".y6").filterBy(visible).shouldHave(CollectionCondition.size(1));
 
     }
 
