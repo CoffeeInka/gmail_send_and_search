@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 
 import java.util.Calendar;
 
+import static com.codeborne.selenide.CollectionCondition.*;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byName;
@@ -32,20 +33,31 @@ public class GmailSendAndSearch {
 
         $(byText("COMPOSE")).click();
         $("[name='to']").setValue(Config.mail);
-        String subject = currentSubject();
+        subject = currentSubject();
         $("[name='subjectbox']").setValue(subject).pressEnter();
         $(byText("Send")).click();
 
-        $(".asf.T-I-J3.J-J5-Ji").click();
+        refreshInbox();
 
-        ElementsCollection mailList = $$("[role=main] .zA");
-        mailList.first().shouldHave(text(subject));
+        assertMailExists();
 
         $("[title='Sent Mail']").click();
-        mailList.first().shouldHave(text(subject));
+        assertMailExists();
 
-        $("[name='q']").setValue("in:inbox subject:"+subject).pressEnter();
-        mailList.shouldHave(CollectionCondition.texts(subject));
+        $("[name='q']").setValue("in:inbox subject:" + subject).pressEnter();
+        mailList.shouldHave(texts(subject));
+    }
+
+    String subject;
+
+    private void assertMailExists() {
+        mailList.first().shouldHave(text(subject));
+    }
+
+    ElementsCollection mailList = $$("[role=main] .zA");
+
+    private void refreshInbox() {
+        $(".asf.T-I-J3.J-J5-Ji").click();
     }
 
     public static String currentSubject() {
