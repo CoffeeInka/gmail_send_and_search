@@ -38,7 +38,6 @@ public class GmailSendAndSearch {
         $(byText("Send")).click();
 
         refreshInbox();
-
         assertMailExists();
 
         $("[title='Sent Mail']").click();
