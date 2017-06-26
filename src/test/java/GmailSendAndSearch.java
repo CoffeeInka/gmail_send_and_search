@@ -1,4 +1,3 @@
-import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
 import org.junit.BeforeClass;
@@ -8,11 +7,10 @@ import org.openqa.selenium.By;
 import java.util.Calendar;
 
 import static com.codeborne.selenide.CollectionCondition.*;
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selectors.byName;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by inna on 08/06/2017.
@@ -33,34 +31,28 @@ public class GmailSendAndSearch {
 
         $(byText("COMPOSE")).click();
         $("[name='to']").setValue(Config.mail);
-        subject = currentSubject();
+        String subject = getUniqueString("Test");
         $("[name='subjectbox']").setValue(subject).pressEnter();
         $(byText("Send")).click();
 
-        refreshInbox();
-        assertMailExists();
+        refresh();
+        assertMail(0, subject);
 
         $("[title='Sent Mail']").click();
-        assertMailExists();
+        assertMail(0, subject);
 
         $("[name='q']").setValue("in:inbox subject:" + subject).pressEnter();
         mailList.shouldHave(texts(subject));
     }
 
-    String subject;
-
-    private void assertMailExists() {
-        mailList.first().shouldHave(text(subject));
+    private void assertMail(int index, String text){
+        mailList.get(index).shouldHave(text(text));
     }
 
     ElementsCollection mailList = $$("[role=main] .zA");
 
-    private void refreshInbox() {
-        $(".asf.T-I-J3.J-J5-Ji").click();
+    private void refresh() {
+        $(".asf").click();
     }
 
-    public static String currentSubject() {
-        Calendar cal = Calendar.getInstance();
-        return String.format("Test %tF %<tT.%<tL", cal, cal);
-    }
 }
