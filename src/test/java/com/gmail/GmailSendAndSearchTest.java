@@ -4,11 +4,11 @@ import com.codeborne.selenide.Configuration;
 import com.gmail.pages.Gmail;
 import com.gmail.pages.Mails;
 import com.gmail.pages.Menu;
+import com.gmail.testconfigs.Helpers;
 import com.gmail.testdata.TestData;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static com.gmail.pages.Mails.subject;
 
 /**
  * Created by inna on 08/06/2017.
@@ -27,6 +27,7 @@ public class GmailSendAndSearchTest {
 
         Gmail.login(TestData.mail, TestData.password);
 
+        String subject = Helpers.getUniqueString("Test");
         Mails.send(TestData.mail, subject);
 
         Menu.refresh();
@@ -36,8 +37,8 @@ public class GmailSendAndSearchTest {
         Menu.goToSent();
         Mails.assertMail(0, subject);
 
-        Mails.searchBySubjectInInbox();
-        Mails.assertMails();
+        Mails.searchInInboxBy(subject);
+        Mails.assertMails(subject);
     }
 
 }

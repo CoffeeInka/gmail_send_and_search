@@ -1,7 +1,6 @@
 package com.gmail.pages;
 
 import com.codeborne.selenide.ElementsCollection;
-import com.gmail.testconfigs.Helpers;
 
 import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.text;
@@ -14,15 +13,12 @@ import static com.codeborne.selenide.Selenide.$$;
  */
 public class Mails {
 
-    public static String subject;
-
     public static ElementsCollection mailList = $$("[role=main] .zA");
 
     public static void send(String mail, String subject) {
         $(byText("COMPOSE")).click();
         $("[name='to']").setValue(mail);
-        Mails.subject = Helpers.getUniqueString("Test");
-        $("[name='subjectbox']").setValue(Mails.subject).pressEnter();
+        $("[name='subjectbox']").setValue(subject).pressEnter();
         $(byText("Send")).click();
     }
 
@@ -30,11 +26,11 @@ public class Mails {
         mailList.get(index).shouldHave(text(text));
     }
 
-    public static void searchBySubjectInInbox() {
-        $("[name='q']").setValue("in:inbox subject:" + subject).pressEnter();
+    public static void searchInInboxBy(String text) {
+        $("[name='q']").setValue("in:inbox subject:" + text).pressEnter();
     }
 
-    public static void assertMails() {
-        mailList.shouldHave(texts(subject));
+    public static void assertMails(String text) {
+        mailList.shouldHave(texts(text));
     }
 }
