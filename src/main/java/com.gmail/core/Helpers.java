@@ -1,4 +1,4 @@
-package com.gmail.testconfigs;
+package com.gmail.core;
 
 import java.util.Calendar;
 

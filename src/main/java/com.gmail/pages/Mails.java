@@ -26,11 +26,11 @@ public class Mails {
         mailList.get(index).shouldHave(text(text));
     }
 
-    public static void searchInInboxBy(String text) {
-        $("[name='q']").setValue("in:inbox subject:" + text).pressEnter();
+    public static void searchInInboxBy(String subject) {
+        $("[name='q']").setValue("in:inbox subject:" + subject).pressEnter();
     }
 
-    public static void assertMails(String text) {
+    public static void assertMails(String... text) {
         mailList.shouldHave(texts(text));
     }
 }
