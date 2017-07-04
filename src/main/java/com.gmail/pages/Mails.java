@@ -30,7 +30,7 @@ public class Mails {
         $("[name='q']").setValue("in:inbox subject:" + subject).pressEnter();
     }
 
-    public static void assertMails(String... text) {
-        mailList.shouldHave(texts(text));
+    public static void assertMails(String... texts) {
+        mailList.shouldHave(texts(texts));
     }
 }
