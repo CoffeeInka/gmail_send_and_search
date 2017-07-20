@@ -18,8 +18,6 @@ public class Gmail {
     }
 
     public static void login(String mail, String password) {
-        //driver.findElement(By.cssSelector("#identifierId")).clear();
-        //driver.findElement(By.cssSelector("#identifierId")).sendKeys(mail + Keys.ENTER);
         driver.findElement(By.id("identifierId")).clear();
         driver.findElement(By.id("identifierId")).sendKeys(mail + Keys.ENTER);
         driver.findElement(By.cssSelector("password")).clear();

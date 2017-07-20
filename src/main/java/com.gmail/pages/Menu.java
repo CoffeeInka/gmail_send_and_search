@@ -1,6 +1,9 @@
 package com.gmail.pages;
 
-import static com.codeborne.selenide.Selenide.$;
+
+import org.openqa.selenium.By;
+
+import static com.gmail.core.Driver.driver;
 
 /**
  * Created by inna on 6/26/17.
@@ -8,10 +11,10 @@ import static com.codeborne.selenide.Selenide.$;
 public class Menu {
 
     public static void refresh() {
-        $(".asf").click();
+        driver.findElement(By.className("asf")).click();
     }
 
     public static void goToSent() {
-        $("[title='Sent Mail']").click();
+        driver.findElement(By.cssSelector("[title='Sent Mail']")).click();
     }
 }
