@@ -6,18 +6,18 @@ import com.gmail.pages.Menu;
 import com.gmail.core.Helpers;
 import com.gmail.testdata.TestData;
 import org.junit.*;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static com.gmail.core.Driver.driver;
-import static com.gmail.core.Wait.*;
+import static com.gmail.core.ConciseAPI.assertThat;
+import static com.gmail.core.CustomConditions.textsOf;
 
-
-/**
- * Created by inna on 08/06/2017.
- */
 public class GmailSendAndSearchTest {
+
+    public static WebDriver driver;
+    public static WebDriverWait wait;
 
     @BeforeClass
     public static void setup() {
@@ -35,20 +35,24 @@ public class GmailSendAndSearchTest {
     @Test
     public static void gmailSendAndSearch() throws Exception {
 
-        Gmail.visit();
-        Gmail.login(TestData.mail, TestData.password);
+        Gmail gmail = new Gmail();
+        Mails mails = new Mails();
+        Menu menu = new Menu();
+
+        gmail.visit();
+        gmail.login(TestData.mail, TestData.password);
 
         String subject = Helpers.getUniqueString("Test");
-        Mails.send(TestData.mail, subject);
+        mails.send(TestData.mail, subject);
 
-        Menu.refresh();
+        menu.refresh();
 
-        Mails.assertMail(0, subject);
+        mails.assertMail(0, subject);
 
-        Menu.goToSent();
-        Mails.assertMail(0, subject);
+        menu.goToSent();
+        mails.assertMail(0, subject);
 
-        Mails.searchInInboxBy(subject);
-        Mails.assertMails(subject);
+        mails.searchInInboxBy(subject);
+        assertThat(driver, textsOf(mailList, texts));
     }
 }

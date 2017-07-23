@@ -1,51 +1,54 @@
 package com.gmail.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import static com.gmail.core.CustomConditions.textsToBePresentInElementsLocated;
-import static com.gmail.core.Driver.driver;
-import static com.gmail.core.Wait.wait;
-import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+import static com.gmail.core.ConciseAPI.$;
+import static com.gmail.core.ConciseAPI.assertThat;
+import static com.gmail.core.CustomConditions.nthElementHasText;
+import static org.openqa.selenium.By.*;
 
-/**
- * Created by inna on 6/26/17.
- */
 public class Mails {
 
     @FindBy(css = "[role=main] .zA")
     List<WebElement> mailList;
 
-    Mails mails = PageFactory.initElements(driver, Mails.class);
-
-    public static void send(String mail, String subject) {
-        driver.findElement(By.name("COMPOSE")).click();
-
-        driver.findElement(By.cssSelector("[name='to']")).clear();
-        driver.findElement(By.cssSelector("[name='to']")).sendKeys(mail);
-
-        driver.findElement(By.cssSelector("[name='subjectbox']")).clear();
-        driver.findElement(By.cssSelector("[name='subjectbox']")).sendKeys(subject + Keys.ENTER);
-
-        driver.findElement(By.name("Send")).click();
+    public Mails(){
+        PageFactory.initElements(driver, this);
     }
 
-    public static void assertMail(int index, String text) {
-        wait.until(textToBePresentInElementLocated(By.cssSelector(mailList).get(index)), text);
+    public WebDriver driver;
+
+    public void send(String mail, String subject) {
+        //COMPOSE
+        $(driver, xpath(".//*[@id=':7p']/div/div")).click();
+
+        $(driver, cssSelector("[name='to']")).clear();
+        $(driver, cssSelector("[name='to']")).sendKeys(mail);
+
+        $(driver, cssSelector("[name='subjectbox']")).clear();
+        $(driver, cssSelector("[name='subjectbox']")).sendKeys(subject + Keys.ENTER);
+
+        //SEND
+        $(driver, xpath(".//*[@id=':j6']")).click();
     }
 
-    public static void searchInInboxBy(String subject) {
-        driver.findElement(By.cssSelector("[name='q']")).clear();
-        driver.findElement(By.cssSelector("[name='q']")).sendKeys("in:inbox subject:" + subject);
-        driver.findElement(By.cssSelector("[name='q']")).sendKeys(Keys.ENTER);
+    public void assertMail(int index, String text) {
+        WebDriverWait wait = (new WebDriverWait(driver, 6));
+
+        wait.until(nthElementHasText(mailList, index, text));
     }
 
-    public static void assertMails(String... text) {
-        wait.until(textsToBePresentInElementsLocated(By.cssSelector(mailList)), text);
+    public void searchInInboxBy(String subject) {
+        $(driver, cssSelector("[name='q']")).clear();
+        $(driver, cssSelector("[name='q']")).sendKeys("in:inbox subject:" + subject);
+        $(driver, cssSelector("[name='q']")).sendKeys(Keys.ENTER);
     }
 }

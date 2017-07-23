@@ -1,20 +1,20 @@
 package com.gmail.pages;
 
 
-import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
-import static com.gmail.core.Driver.driver;
+import static com.gmail.core.ConciseAPI.$;
+import static org.openqa.selenium.By.*;
 
-/**
- * Created by inna on 6/26/17.
- */
 public class Menu {
 
-    public static void refresh() {
-        driver.findElement(By.className("asf")).click();
+    public WebDriver driver;
+
+    public void refresh() {
+        $(driver, className("asf")).click();
     }
 
-    public static void goToSent() {
-        driver.findElement(By.cssSelector("[title='Sent Mail']")).click();
+    public void goToSent() {
+        $(driver, cssSelector("[title='Sent Mail']")).click();
     }
 }
