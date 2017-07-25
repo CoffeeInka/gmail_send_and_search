@@ -16,8 +16,8 @@ public class ConciseAPI {
 
     }
 
-    public static void assertThat(WebDriver driver, Boolean b) {
-        WebDriverWait wait = new WebDriverWait(driver, 6);
-        wait.until(b);
-    }
+//    public static void assertThat(WebDriver driver, Boolean b) {
+//        WebDriverWait wait = new WebDriverWait(driver, 6);
+//        wait.until(b);
+//    }
 }

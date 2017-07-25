@@ -11,11 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.gmail.core.ConciseAPI.$;
-import static com.gmail.core.ConciseAPI.assertThat;
 import static com.gmail.core.CustomConditions.nthElementHasText;
 import static org.openqa.selenium.By.*;
 
 public class Mails {
+
+    public Mails(WebDriver driver){
+        this.driver = driver;
+    }
 
     @FindBy(css = "[role=main] .zA")
     List<WebElement> mailList;

@@ -8,6 +8,10 @@ import static org.openqa.selenium.By.*;
 
 public class Menu {
 
+    public Menu(WebDriver driver){
+        this.driver = driver;
+    }
+
     public WebDriver driver;
 
     public void refresh() {
