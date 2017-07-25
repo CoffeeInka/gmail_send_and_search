@@ -6,52 +6,58 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.gmail.core.ConciseAPI.$;
+import static com.gmail.core.ConciseAPI.assertThat;
 import static com.gmail.core.CustomConditions.nthElementHasText;
-import static org.openqa.selenium.By.*;
+import static com.gmail.core.CustomConditions.textsOf;
 
 public class Mails {
 
-    public Mails(WebDriver driver){
+    public WebDriver driver;
+
+    public Mails(WebDriver driver) {
         this.driver = driver;
     }
 
     @FindBy(css = "[role=main] .zA")
     List<WebElement> mailList;
 
-    public Mails(){
+    public Mails() {
         PageFactory.initElements(driver, this);
     }
 
-    public WebDriver driver;
-
     public void send(String mail, String subject) {
-        $(driver, By.xpath("//*[text()='COMPOSE']")).click();
+        $(driver, byText("COMPOSE")).click();
 
-        $(driver, By.cssSelector("[name='to']")).clear();
-        $(driver, By.cssSelector("[name='to']")).sendKeys(mail);
+        $(driver, By.name("to")).clear();
+        $(driver, By.name("to")).sendKeys(mail);
 
-        $(driver, By.cssSelector("[name='subjectbox']")).clear();
-        $(driver, By.cssSelector("[name='subjectbox']")).sendKeys(subject + Keys.ENTER);
+        $(driver, By.name("subjectbox")).clear();
+        $(driver, By.name("subjectbox")).sendKeys(subject + Keys.ENTER);
 
-        //SEND
-        $(driver, By.xpath("//*[text()='Send']")).click();
+        $(driver, byText("Send")).click();
+    }
+
+    public By byText(String text) {
+        return By.xpath(String.format("//*[text()='%s']", text));
     }
 
     public void assertMail(int index, String text) {
-        WebDriverWait wait = (new WebDriverWait(driver, 6));
-
-        wait.until(nthElementHasText(mailList, index, text));
+        assertThat(driver, nthElementHasText(mailList, index, text));
     }
 
     public void searchInInboxBy(String subject) {
-        $(driver, cssSelector("[name='q']")).clear();
-        $(driver, cssSelector("[name='q']")).sendKeys("in:inbox subject:" + subject);
-        $(driver, cssSelector("[name='q']")).sendKeys(Keys.ENTER);
+        $(driver, By.name("q")).clear();
+        $(driver, By.name("q")).sendKeys("in:inbox subject:" + subject);
+        $(driver, By.name("q")).sendKeys(Keys.ENTER);
+    }
+
+    public void assertMails(WebDriver driver, String... texts) {
+        assertThat(driver, textsOf(mailList, texts));
     }
 }

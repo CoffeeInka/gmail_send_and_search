@@ -13,14 +13,14 @@ public class ConciseAPI {
 
     //for way with elementLocator
     public static WebElement $(WebDriver driver, By elementLocator) {
-    //  return new WebDriverWait(driver, 10).until(visibilityOfElementLocated(elementLocator));
+        //  return new WebDriverWait(driver, 10).until(visibilityOfElementLocated(elementLocator));
         assertThat(driver, visibilityOfElementLocated(elementLocator));
         return driver.findElement(elementLocator);
     }
 
     //for way with FindBy
     public static WebElement $(WebDriver driver, WebElement element) {
-    //  return new WebDriverWait(driver, 10).until(visibilityOf(element));
+        //  return new WebDriverWait(driver, 10).until(visibilityOf(element));
         assertThat(driver, visibilityOf(element));
         return element;
     }

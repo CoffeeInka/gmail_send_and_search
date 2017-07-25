@@ -18,42 +18,45 @@ public class CustomConditions {
             public Boolean apply(WebDriver driver) {
                 element = elementsList.get(index);
                 elementText = element.getText();
-                return expectedText.equals(elementText);
+                return expectedText.contains(elementText);
             }
+
             public String toString() {
-                return String.format("\nexpected text by index %s\n to be: %s\n while actual text is: %s\n", index, expectedText, elementText);
+                return String.format("\nexpected text by index %s to be: %s while actual text is: %s", index, expectedText, elementText);
             }
         };
     }
 
 
- public static ExpectedCondition<Boolean> textsOf(final List<WebElement> elementsList, final String... expectedTexts) {
+    public static ExpectedCondition<Boolean> textsOf(final List<WebElement> elementsList, final String... expectedTexts) {
         return new ExpectedCondition<Boolean>() {
 
-            private WebElement element;
-            private String elementText;
+            private String actualText;
+            private String expectedText;
+            List<String> actualTexts = new ArrayList<String>();
 
             public Boolean apply(WebDriver driver) {
-                //gather texts of elements into list and operate just with list
-                //via foreach
-                //elementTexts.add(elementText);
-                // if size and length are not equal, return false
-                // if they are equal, check lists
-                ArrayList<String> elementTexts = new ArrayList<String>();
-                for(int i=0; i<elementsList.size(); i++){
-                    element = elementsList.get(i);
-                    elementText = element.getText();
-                    elementText.contains(expectedTexts[i]);
-                    //if doesn't contain return false;
-
+                for (WebElement element : elementsList) {
+                    actualText = element.getText();
+                    actualTexts.add(actualText);
                 }
-                    return true;
+                if (!(actualTexts.size() == expectedTexts.length)) {
+                    return false;
+                } else {
+                    for (int i = 0; i < actualTexts.size(); i++) {
+                        actualText = actualTexts.get(i);
+                        expectedText = expectedTexts[i];
+                    }
+                    if (actualText.contains(expectedText)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
+            }
 
             public String toString() {
-                return String.format("\ntexts (\'%s\') to be present in elements %s", expectedTexts, elementsList);
-                //"\nexpected text by index %s\n to be: %s\n while actual text is: %s\n", ...
-                //to check when it works and when it doesn't
+                return String.format("\nExpected texts: %s while actual texts are: %s", expectedTexts, actualTexts);
             }
         };
     }

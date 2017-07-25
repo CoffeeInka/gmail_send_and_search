@@ -27,7 +27,7 @@ public class GmailSendAndSearchTest {
 
     @AfterClass
     public static void tearDown() {
-       driver.quit();
+        driver.quit();
     }
 
     @Test
@@ -42,15 +42,15 @@ public class GmailSendAndSearchTest {
 
         String subject = Helpers.getUniqueString("Test");
         mails.send(TestData.mail, subject);
-//
-//        menu.refresh();
-//
-//        mails.assertMail(0, subject);
-//
-//        menu.goToSent();
-//        mails.assertMail(0, subject);
-//
-//        mails.searchInInboxBy(subject);
-//        assertThat(driver, textsOf(mailList, texts));
+
+        menu.refresh();
+
+        mails.assertMail(0, subject);
+
+        menu.goToSent();
+        mails.assertMail(0, subject);
+
+        mails.searchInInboxBy(subject);
+        mails.assertMails(driver, subject);
     }
 }
