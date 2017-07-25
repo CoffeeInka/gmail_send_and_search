@@ -1,5 +1,6 @@
 package com.gmail;
 
+import com.gmail.core.Helpers;
 import com.gmail.pages.Gmail;
 import com.gmail.pages.Mails;
 import com.gmail.pages.Menu;
@@ -26,7 +27,7 @@ public class GmailSendAndSearchTest {
 
     @AfterClass
     public static void tearDown() {
-        driver.quit();
+       driver.quit();
     }
 
     @Test
@@ -39,8 +40,8 @@ public class GmailSendAndSearchTest {
         gmail.visit();
         gmail.login(TestData.mail, TestData.password);
 
-//        String subject = Helpers.getUniqueString("Test");
-//        mails.send(TestData.mail, subject);
+        String subject = Helpers.getUniqueString("Test");
+        mails.send(TestData.mail, subject);
 //
 //        menu.refresh();
 //

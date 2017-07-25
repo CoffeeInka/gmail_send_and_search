@@ -1,5 +1,6 @@
 package com.gmail.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -30,17 +31,16 @@ public class Mails {
     public WebDriver driver;
 
     public void send(String mail, String subject) {
-        //COMPOSE
-        $(driver, xpath(".//*[@id=':7p']/div/div")).click();
+        $(driver, By.xpath("//*[text()='COMPOSE']")).click();
 
-        $(driver, cssSelector("[name='to']")).clear();
-        $(driver, cssSelector("[name='to']")).sendKeys(mail);
+        $(driver, By.cssSelector("[name='to']")).clear();
+        $(driver, By.cssSelector("[name='to']")).sendKeys(mail);
 
-        $(driver, cssSelector("[name='subjectbox']")).clear();
-        $(driver, cssSelector("[name='subjectbox']")).sendKeys(subject + Keys.ENTER);
+        $(driver, By.cssSelector("[name='subjectbox']")).clear();
+        $(driver, By.cssSelector("[name='subjectbox']")).sendKeys(subject + Keys.ENTER);
 
         //SEND
-        $(driver, xpath(".//*[@id=':j6']")).click();
+        $(driver, By.xpath("//*[text()='Send']")).click();
     }
 
     public void assertMail(int index, String text) {

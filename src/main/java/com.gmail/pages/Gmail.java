@@ -23,7 +23,9 @@ public class Gmail {
     public void login(String mail, String password) {
         $(driver, By.id("identifierId")).clear();
         $(driver, By.id("identifierId")).sendKeys(mail + Keys.ENTER);
-        $(driver, By.name("password")).clear();
-        $(driver, By.name("password")).sendKeys(password + Keys.ENTER);
+        //$(driver, By.name("password")).clear();
+        $(driver, By.xpath(".//*[@id='password']/div[1]/div/div[1]/input")).clear();
+        //$(driver, By.name("password")).sendKeys(password + Keys.ENTER);
+        $(driver, By.xpath(".//*[@id='password']/div[1]/div/div[1]/input")).sendKeys(password + Keys.ENTER);
     }
 }
