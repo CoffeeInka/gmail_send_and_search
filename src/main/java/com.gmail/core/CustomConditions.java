@@ -22,7 +22,7 @@ public class CustomConditions {
             }
 
             public String toString() {
-                return String.format("\nexpected text by index %s to be: %s while actual text is: %s", index, expectedText, elementText);
+                return String.format("\nExpected text by index %s is: %s while actual text is: %s", index, expectedText, elementText);
             }
         };
     }
@@ -34,20 +34,22 @@ public class CustomConditions {
             private String actualText;
             private String expectedText;
             List<String> actualTexts = new ArrayList<String>();
+            List<String> expectedTextsList = new ArrayList<String>();
 
             public Boolean apply(WebDriver driver) {
                 for (WebElement element : elementsList) {
                     actualText = element.getText();
                     actualTexts.add(actualText);
                 }
-                if (!(actualTexts.size() == expectedTexts.length)) {
+                for (int i = 0; i < expectedTexts.length; i++) {
+                    expectedText = expectedTexts[i];
+                    expectedTextsList.add(expectedText);
+                }
+
+                if (!(actualTexts.size() == expectedTextsList.size())) {
                     return false;
                 } else {
-                    for (int i = 0; i < actualTexts.size(); i++) {
-                        actualText = actualTexts.get(i);
-                        expectedText = expectedTexts[i];
-                    }
-                    if (actualText.contains(expectedText)) {
+                    if (actualTexts.containsAll(expectedTextsList)) {
                         return true;
                     } else {
                         return false;
@@ -56,7 +58,7 @@ public class CustomConditions {
             }
 
             public String toString() {
-                return String.format("\nExpected texts: %s while actual texts are: %s", expectedTexts, actualTexts);
+                return String.format("\nExpected texts are: %s while actual texts are: %s", expectedTextsList, actualTexts);
             }
         };
     }

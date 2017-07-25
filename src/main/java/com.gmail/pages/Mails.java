@@ -6,8 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedCondition.*;
 
 import java.util.List;
 
@@ -22,14 +21,11 @@ public class Mails {
 
     public Mails(WebDriver driver) {
         this.driver = driver;
-    }
-
-    @FindBy(css = "[role=main] .zA")
-    List<WebElement> mailList;
-
-    public Mails() {
         PageFactory.initElements(driver, this);
     }
+
+    @FindBy(css = "[role=main] .zA .xY.a4W")
+    List<WebElement> mailList;
 
     public void send(String mail, String subject) {
         $(driver, byText("COMPOSE")).click();
