@@ -33,23 +33,23 @@ public class CustomConditions {
 
             private String actualText;
             private String expectedText;
-            List<String> actualTexts = new ArrayList<String>();
-            List<String> expectedTextsList = new ArrayList<String>();
+            private List<String> expectedTexts;
+            private List<String> actualTexts;
 
             public Boolean apply(WebDriver driver) {
+                actualTexts = new ArrayList<String>();
                 for (WebElement element : elementsList) {
                     actualText = element.getText();
                     actualTexts.add(actualText);
                 }
-                for (int i = 0; i < expectedTexts.length; i++) {
-                    expectedText = expectedTexts[i];
-                    expectedTextsList.add(expectedText);
-                }
-
-                if (!(actualTexts.size() == expectedTextsList.size())) {
+                expectedTexts = new ArrayList<String>();
+                if (!(actualTexts.size() == expectedTexts.size())) {
                     return false;
                 } else {
-                    if (actualTexts.containsAll(expectedTextsList)) {
+                    if (
+                    for (int i = 0; i < actualTexts.size(); i++) {
+                    actualTexts.get(i).contains(expectedTexts[i]);})
+                   {
                         return true;
                     } else {
                         return false;
@@ -58,7 +58,7 @@ public class CustomConditions {
             }
 
             public String toString() {
-                return String.format("\nExpected texts are: %s while actual texts are: %s", expectedTextsList, actualTexts);
+                return String.format("\nExpected texts are: %s while actual texts are: %s", expectedTexts, actualTexts);
             }
         };
     }
