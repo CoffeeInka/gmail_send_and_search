@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CustomConditions {
@@ -22,7 +23,7 @@ public class CustomConditions {
             }
 
             public String toString() {
-                return String.format("\nExpected text by index %s is: %s while actual text is: %s", index, expectedText, elementText);
+                return String.format("\nExpected text by index %s to be: %s while actual text is: %s", index, expectedText, elementText);
             }
         };
     }
@@ -31,34 +32,27 @@ public class CustomConditions {
     public static ExpectedCondition<Boolean> textsOf(final List<WebElement> elementsList, final String... expectedTexts) {
         return new ExpectedCondition<Boolean>() {
 
-            private String actualText;
-            private String expectedText;
-            private List<String> expectedTexts;
             private List<String> actualTexts;
+            private List<String> expectedTextsList = Arrays.asList(expectedTexts);
 
             public Boolean apply(WebDriver driver) {
                 actualTexts = new ArrayList<String>();
                 for (WebElement element : elementsList) {
-                    actualText = element.getText();
-                    actualTexts.add(actualText);
+                    actualTexts.add(element.getText());
                 }
-                expectedTexts = new ArrayList<String>();
-                if (!(actualTexts.size() == expectedTexts.size())) {
+                if (actualTexts.size() != expectedTexts.length) {
                     return false;
-                } else {
-                    if (
-                    for (int i = 0; i < actualTexts.size(); i++) {
-                    actualTexts.get(i).contains(expectedTexts[i]);})
-                   {
-                        return true;
-                    } else {
+                }
+                for (int i = 0; i < actualTexts.size(); i++) {
+                    if (!(actualTexts.get(i).contentEquals(expectedTexts[i]))) {
                         return false;
                     }
                 }
+                return true;
             }
 
             public String toString() {
-                return String.format("\nExpected texts are: %s while actual texts are: %s", expectedTexts, actualTexts);
+                return String.format("\nExpected texts to be: %s while actual texts are: %s", expectedTextsList, actualTexts);
             }
         };
     }

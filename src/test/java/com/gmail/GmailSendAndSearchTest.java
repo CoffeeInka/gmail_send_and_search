@@ -11,18 +11,21 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.concurrent.TimeUnit;
+
 
 public class GmailSendAndSearchTest {
 
     public static WebDriver driver;
-    public static WebDriverWait wait;
+    Gmail gmail = new Gmail(driver);
+    Mails mails = new Mails(driver);
+    Menu menu = new Menu(driver);
 
     @BeforeClass
     public static void setup() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("marionette", false);
         driver = new FirefoxDriver(capabilities);
-        wait = new WebDriverWait(driver, 25);
     }
 
     @AfterClass
@@ -31,11 +34,7 @@ public class GmailSendAndSearchTest {
     }
 
     @Test
-    public void gmailSendAndSearch() throws Exception {
-
-        Gmail gmail = new Gmail(driver);
-        Mails mails = new Mails(driver);
-        Menu menu = new Menu(driver);
+    public void gmailSendAndSearch() {
 
         gmail.visit();
         gmail.login(TestData.mail, TestData.password);

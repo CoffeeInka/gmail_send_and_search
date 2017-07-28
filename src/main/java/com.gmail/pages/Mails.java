@@ -9,6 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition.*;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.gmail.core.ConciseAPI.$;
 import static com.gmail.core.ConciseAPI.assertThat;
@@ -24,7 +25,7 @@ public class Mails {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(css = "[role=main] .zA .xY.a4W")
+    @FindBy(css = "[role=main] .zA .y6")
     List<WebElement> mailList;
 
     public void send(String mail, String subject) {
