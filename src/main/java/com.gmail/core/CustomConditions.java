@@ -1,5 +1,6 @@
 package com.gmail.core;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -18,7 +19,7 @@ public class CustomConditions {
 
             public Boolean apply(WebDriver driver) {
                 element = elementsList.get(index);
-                elementText = element.getText();
+                elementText = element.findElement(By.className("y6")).getText();
                 return expectedText.contains(elementText);
             }
 
@@ -33,18 +34,17 @@ public class CustomConditions {
         return new ExpectedCondition<Boolean>() {
 
             private List<String> actualTexts;
-            private List<String> expectedTextsList = Arrays.asList(expectedTexts);
 
             public Boolean apply(WebDriver driver) {
                 actualTexts = new ArrayList<String>();
                 for (WebElement element : elementsList) {
-                    actualTexts.add(element.getText());
+                    actualTexts.add(element.findElement(By.className("y6")).getText());
                 }
                 if (actualTexts.size() != expectedTexts.length) {
                     return false;
                 }
                 for (int i = 0; i < actualTexts.size(); i++) {
-                    if (!(actualTexts.get(i).contentEquals(expectedTexts[i]))) {
+                    if (!(actualTexts.get(i).equals(expectedTexts[i]))) {
                         return false;
                     }
                 }
@@ -52,7 +52,7 @@ public class CustomConditions {
             }
 
             public String toString() {
-                return String.format("\nExpected texts to be: %s while actual texts are: %s", expectedTextsList, actualTexts);
+                return String.format("\nExpected texts to be: %s while actual texts are: %s", Arrays.asList(expectedTexts), actualTexts);
             }
         };
     }

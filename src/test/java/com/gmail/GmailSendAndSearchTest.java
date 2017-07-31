@@ -26,6 +26,7 @@ public class GmailSendAndSearchTest {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("marionette", false);
         driver = new FirefoxDriver(capabilities);
+        driver.manage().window().maximize();
     }
 
     @AfterClass
@@ -50,6 +51,6 @@ public class GmailSendAndSearchTest {
         mails.assertMail(0, subject);
 
         mails.searchInInboxBy(subject);
-        mails.assertMails(driver, subject);
+        mails.assertMails(subject);
     }
 }

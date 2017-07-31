@@ -5,6 +5,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 import static com.gmail.core.ConciseAPI.$;
+import static com.gmail.core.ConciseAPI.setValue;
 
 public class Gmail {
 
@@ -16,13 +17,10 @@ public class Gmail {
 
     public void visit() {
         driver.get("http://gmail.com/");
-        driver.manage().window().maximize();
     }
 
     public void login(String mail, String password) {
-        $(driver, By.id("identifierId")).clear();
-        $(driver, By.id("identifierId")).sendKeys(mail + Keys.ENTER);
-        $(driver, By.name("password")).clear();
-        $(driver, By.name("password")).sendKeys(password + Keys.ENTER);
+        setValue(driver, By.id("identifierId"), mail);
+        setValue(driver, By.name("password"), password);
     }
 }

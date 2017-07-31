@@ -11,8 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static com.gmail.core.ConciseAPI.$;
-import static com.gmail.core.ConciseAPI.assertThat;
+import static com.gmail.core.ConciseAPI.*;
 import static com.gmail.core.CustomConditions.nthElementHasText;
 import static com.gmail.core.CustomConditions.textsOf;
 
@@ -25,23 +24,16 @@ public class Mails {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(css = "[role=main] .zA .y6")
+    @FindBy(css = "[role=main] .zA")
     List<WebElement> mailList;
 
     public void send(String mail, String subject) {
         $(driver, byText("COMPOSE")).click();
 
-        $(driver, By.name("to")).clear();
-        $(driver, By.name("to")).sendKeys(mail);
-
-        $(driver, By.name("subjectbox")).clear();
-        $(driver, By.name("subjectbox")).sendKeys(subject + Keys.ENTER);
+        setValue(driver, By.name("to"), mail);
+        setValue(driver, By.name("subjectbox"), subject);
 
         $(driver, byText("Send")).click();
-    }
-
-    public By byText(String text) {
-        return By.xpath(String.format("//*[text()='%s']", text));
     }
 
     public void assertMail(int index, String text) {
@@ -49,12 +41,10 @@ public class Mails {
     }
 
     public void searchInInboxBy(String subject) {
-        $(driver, By.name("q")).clear();
-        $(driver, By.name("q")).sendKeys("in:inbox subject:" + subject);
-        $(driver, By.name("q")).sendKeys(Keys.ENTER);
+        setValue(driver, By.name("q"), "in:inbox subject:" + subject);
     }
 
-    public void assertMails(WebDriver driver, String... texts) {
+    public void assertMails(String... texts) {
         assertThat(driver, textsOf(mailList, texts));
     }
 }
