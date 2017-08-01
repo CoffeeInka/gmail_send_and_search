@@ -30,7 +30,10 @@ public class Mails {
     public void send(String mail, String subject) {
         $(driver, byText("COMPOSE")).click();
 
-        setValue(driver, By.name("to"), mail);
+        //$(driver, By.cssSelector("[id=':ar']")).click();
+        //$(driver, By.name("to")).sendKeys(mail);
+        $(driver, byText("Recipients")).click();
+        $(driver, By.name("to")).sendKeys(mail);
         setValue(driver, By.name("subjectbox"), subject);
 
         $(driver, byText("Send")).click();
