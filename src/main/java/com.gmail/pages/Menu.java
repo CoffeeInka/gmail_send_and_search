@@ -5,11 +5,9 @@ import com.gmail.core.ConciseAPI;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import static com.gmail.core.ConciseAPI.$;
+public class Menu extends ConciseAPI {
 
-public class Menu extends ConciseAPI{
-
-    public WebDriver driver;
+    private WebDriver driver;
 
     public WebDriver getDriver() {
         return this.driver;
@@ -20,10 +18,10 @@ public class Menu extends ConciseAPI{
     }
 
     public void refresh() {
-        $(driver, By.className("asf")).click();
+        $(By.className("asf")).click();
     }
 
     public void goToSent() {
-        $(driver, By.cssSelector("[title='Sent Mail']")).click();
+        $(By.cssSelector("[title='Sent Mail']")).click();
     }
 }

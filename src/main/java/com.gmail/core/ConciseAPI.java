@@ -15,26 +15,29 @@ public abstract class ConciseAPI {
     public abstract WebDriver getDriver();
 
     //for way with elementLocator
-    public static WebElement $(WebDriver driver, By elementLocator) {
-        return assertThat(driver, visibilityOfElementLocated(elementLocator));
+    public WebElement $(By elementLocator) {
+        getDriver();
+        return assertThat(visibilityOfElementLocated(elementLocator));
     }
 
     //for way with FindBy
-    public static WebElement $(WebDriver driver, WebElement element) {
-        return assertThat(driver, visibilityOf(element));
+    public WebElement $(WebElement element) {
+        getDriver();
+        return assertThat(visibilityOf(element));
 
     }
 
-    public static <V> V assertThat(WebDriver driver, ExpectedCondition<V> condition) {
-        return new WebDriverWait(driver, 25).until(condition);
+    public <V> V assertThat(ExpectedCondition<V> condition) {
+        getDriver();
+        return new WebDriverWait(getDriver(), 25).until(condition);
     }
 
-    public static void setValue(WebDriver driver, By elementLocator, String text) {
-        $(driver, elementLocator).clear();
-        $(driver, elementLocator).sendKeys(text);
+    public void setValue(By elementLocator, String text) {
+        $(elementLocator).clear();
+        $(elementLocator).sendKeys(text);
     }
 
-    public static By byText(String text) {
+    public By byText(String text) {
         return By.xpath(String.format("//*[text()='%s']", text));
     }
 }

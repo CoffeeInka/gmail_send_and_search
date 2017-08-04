@@ -33,27 +33,27 @@ public class Mails extends ConciseAPI{
     List<WebElement> mailList;
 
     public void send(String mail, String subject) {
-        $(driver, byText("COMPOSE")).click();
+        $(byText("COMPOSE")).click();
 
         //$(driver, By.cssSelector("[id=':ar']")).click();
         //$(driver, By.name("to")).sendKeys(mail);
-        $(driver, byText("Recipients")).click();
+        $(byText("Recipients")).click();
         //$(driver, By.name("to")).sendKeys(mail);
-        setValue(driver, By.name("to"), mail);
-        setValue(driver, By.name("subjectbox"), subject + Keys.ENTER);
+        setValue(By.name("to"), mail);
+        setValue(By.name("subjectbox"), subject + Keys.ENTER);
 
-        $(driver, byText("Send")).click();
+        $(byText("Send")).click();
     }
 
     public void assertMail(int index, String text) {
-        assertThat(driver, nthElementHasText(mailList, index, text));
+        assertThat(nthElementHasText(mailList, index, text));
     }
 
     public void searchInInboxBy(String subject) {
-        setValue(driver, By.name("q"), "in:inbox subject:" + subject + Keys.ENTER);
+        setValue(By.name("q"), "in:inbox subject:" + subject + Keys.ENTER);
     }
 
     public void assertMails(String... texts) {
-        assertThat(driver, textsOf(mailList, texts));
+        assertThat(textsOf(mailList, texts));
     }
 }
