@@ -20,7 +20,7 @@ public class Gmail {
     }
 
     public void login(String mail, String password) {
-        setValue(driver, By.id("identifierId"), mail);
-        setValue(driver, By.name("password"), password);
+        setValue(driver, By.id("identifierId"), mail + Keys.ENTER);
+        setValue(driver, By.name("password"), password  + Keys.ENTER);
     }
 }

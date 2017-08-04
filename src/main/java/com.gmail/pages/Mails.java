@@ -33,8 +33,9 @@ public class Mails {
         //$(driver, By.cssSelector("[id=':ar']")).click();
         //$(driver, By.name("to")).sendKeys(mail);
         $(driver, byText("Recipients")).click();
-        $(driver, By.name("to")).sendKeys(mail);
-        setValue(driver, By.name("subjectbox"), subject);
+        //$(driver, By.name("to")).sendKeys(mail);
+        setValue(driver, By.name("to"), mail);
+        setValue(driver, By.name("subjectbox"), subject + Keys.ENTER);
 
         $(driver, byText("Send")).click();
     }
@@ -44,7 +45,7 @@ public class Mails {
     }
 
     public void searchInInboxBy(String subject) {
-        setValue(driver, By.name("q"), "in:inbox subject:" + subject);
+        setValue(driver, By.name("q"), "in:inbox subject:" + subject + Keys.ENTER);
     }
 
     public void assertMails(String... texts) {
