@@ -1,5 +1,6 @@
 package com.gmail.pages;
 
+import com.gmail.core.ConciseAPI;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -15,9 +16,13 @@ import static com.gmail.core.ConciseAPI.*;
 import static com.gmail.core.CustomConditions.nthElementHasText;
 import static com.gmail.core.CustomConditions.textsOf;
 
-public class Mails {
+public class Mails extends ConciseAPI{
 
     public WebDriver driver;
+
+    public WebDriver getDriver() {
+        return this.driver;
+    }
 
     public Mails(WebDriver driver) {
         this.driver = driver;

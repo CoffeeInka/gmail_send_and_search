@@ -1,5 +1,6 @@
 package com.gmail;
 
+import com.gmail.core.ConciseAPI;
 import com.gmail.core.Helpers;
 import com.gmail.pages.Gmail;
 import com.gmail.pages.Mails;
@@ -14,12 +15,18 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.concurrent.TimeUnit;
 
 
-public class GmailSendAndSearchTest {
+public class GmailSendAndSearchTest extends ConciseAPI {
 
-    public static WebDriver driver;
-    Gmail gmail = new Gmail(driver);
-    Mails mails = new Mails(driver);
-    Menu menu = new Menu(driver);
+    private static WebDriver driver;
+
+    public WebDriver getDriver() {
+        return driver;
+    }
+
+    private Gmail gmail = new Gmail(getDriver());
+    private Mails mails = new Mails(getDriver());
+    private Menu menu = new Menu(getDriver());
+
 
     @BeforeClass
     public static void setup() {
@@ -53,4 +60,5 @@ public class GmailSendAndSearchTest {
         mails.searchInInboxBy(subject);
         mails.assertMails(subject);
     }
+
 }

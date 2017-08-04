@@ -10,7 +10,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
-public class ConciseAPI {
+public abstract class ConciseAPI {
+
+    public abstract WebDriver getDriver();
 
     //for way with elementLocator
     public static WebElement $(WebDriver driver, By elementLocator) {
