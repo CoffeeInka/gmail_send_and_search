@@ -40,4 +40,12 @@ public abstract class ConciseAPI {
     public By byText(String text) {
         return By.xpath(String.format("//*[text()='%s']", text));
     }
+
+    public By byCss (String cssSelector){
+        return By.cssSelector(cssSelector);
+    }
+
+    public By by(String cssSelector){
+        return byCss(cssSelector);
+    }
 }

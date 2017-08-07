@@ -22,8 +22,7 @@ public class Mails extends BasePage{
       super(driver);
     }
 
-    @FindBy(css = "[role=main] .zA")
-    List<WebElement> mailList;
+    By mailList = by("[role=main] .zA");
 
     public void send(String mail, String subject) {
         $(byText("COMPOSE")).click();
