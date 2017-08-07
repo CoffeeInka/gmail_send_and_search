@@ -15,18 +15,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.concurrent.TimeUnit;
 
 
-public class GmailSendAndSearchTest extends ConciseAPI {
+public class GmailSendAndSearchTest extends GmailLogin {
 
-    private static WebDriver driver;
-
-    public WebDriver getDriver() {
-        return driver;
-    }
-
-    private Gmail gmail = new Gmail(getDriver());
     private Mails mails = new Mails(getDriver());
     private Menu menu = new Menu(getDriver());
-
 
     @BeforeClass
     public static void setup() {
@@ -43,9 +35,7 @@ public class GmailSendAndSearchTest extends ConciseAPI {
 
     @Test
     public void gmailSendAndSearch() {
-
-        gmail.visit();
-        gmail.login(TestData.mail, TestData.password);
+        loginToGmail();
 
         String subject = Helpers.getUniqueString("Test");
         mails.send(TestData.mail, subject);

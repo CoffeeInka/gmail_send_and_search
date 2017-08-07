@@ -5,16 +5,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
-public class Gmail extends ConciseAPI{
-
-    private WebDriver driver;
-
-    public WebDriver getDriver() {
-        return this.driver;
-    }
+public class Gmail extends BasePage{
 
     public Gmail(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public void visit() {

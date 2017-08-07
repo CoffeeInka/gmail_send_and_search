@@ -5,16 +5,10 @@ import com.gmail.core.ConciseAPI;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class Menu extends ConciseAPI {
-
-    private WebDriver driver;
-
-    public WebDriver getDriver() {
-        return this.driver;
-    }
+public class Menu extends BasePage {
 
     public Menu(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public void refresh() {

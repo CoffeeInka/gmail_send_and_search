@@ -16,17 +16,10 @@ import static com.gmail.core.ConciseAPI.*;
 import static com.gmail.core.CustomConditions.nthElementHasText;
 import static com.gmail.core.CustomConditions.textsOf;
 
-public class Mails extends ConciseAPI{
-
-    public WebDriver driver;
-
-    public WebDriver getDriver() {
-        return this.driver;
-    }
+public class Mails extends BasePage{
 
     public Mails(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+      super(driver);
     }
 
     @FindBy(css = "[role=main] .zA")
