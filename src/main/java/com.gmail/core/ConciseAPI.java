@@ -16,15 +16,7 @@ public abstract class ConciseAPI {
 
     //for way with elementLocator
     public WebElement $(By elementLocator) {
-        getDriver();
         return assertThat(visibilityOfElementLocated(elementLocator));
-    }
-
-    //for way with FindBy
-    public WebElement $(WebElement element) {
-        getDriver();
-        return assertThat(visibilityOf(element));
-
     }
 
     public <V> V assertThat(ExpectedCondition<V> condition) {
