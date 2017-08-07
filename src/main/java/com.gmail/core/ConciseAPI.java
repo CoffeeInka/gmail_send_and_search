@@ -1,9 +1,9 @@
 package com.gmail.core;
 
+import com.google.common.base.Function;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
@@ -23,7 +23,7 @@ public class ConciseAPI {
 
     }
 
-    public static <V> V assertThat(WebDriver driver, ExpectedCondition<V> condition) {
+    public static <V> V assertThat(WebDriver driver, Function<? super WebDriver, V> condition) {
         return new WebDriverWait(driver, 25).until(condition);
     }
 
