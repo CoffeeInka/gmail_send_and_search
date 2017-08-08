@@ -6,22 +6,23 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public abstract class ConciseAPI {
 
     public abstract WebDriver getDriver();
 
-    //for way with elementLocator
     public WebElement $(By elementLocator) {
         return assertThat(visibilityOfElementLocated(elementLocator));
     }
 
-    public <V> V assertThat(ExpectedCondition<V> condition) {
+    public <V> V assertThat(ExpectedCondition<V> condition, long timeout) {
         getDriver();
-        return new WebDriverWait(getDriver(), 25).until(condition);
+        return new WebDriverWait(getDriver(), timeout).until(condition);
+    }
+
+    public <V> V assertThat(ExpectedCondition<V> condition) {
+        return assertThat(condition, Configuration.timeout);
     }
 
     public void setValue(By elementLocator, String text) {
@@ -33,11 +34,15 @@ public abstract class ConciseAPI {
         return By.xpath(String.format("//*[text()='%s']", text));
     }
 
-    public By byCss (String cssSelector){
+    public By byCss(String cssSelector) {
         return By.cssSelector(cssSelector);
     }
 
-    public By by(String cssSelector){
+    public By by(String cssSelector) {
         return byCss(cssSelector);
+    }
+
+    public void open(String url) {
+        getDriver().get(url);
     }
 }

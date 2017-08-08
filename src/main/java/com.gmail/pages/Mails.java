@@ -16,10 +16,10 @@ import static com.gmail.core.ConciseAPI.*;
 import static com.gmail.core.CustomConditions.nthElementHasText;
 import static com.gmail.core.CustomConditions.textsOf;
 
-public class Mails extends BasePage{
+public class Mails extends BasePage {
 
     public Mails(WebDriver driver) {
-      super(driver);
+        super(driver);
     }
 
     By mailList = by("[role=main] .zA");
@@ -27,10 +27,7 @@ public class Mails extends BasePage{
     public void send(String mail, String subject) {
         $(byText("COMPOSE")).click();
 
-        //$(driver, By.cssSelector("[id=':ar']")).click();
-        //$(driver, By.name("to")).sendKeys(mail);
         $(byText("Recipients")).click();
-        //$(driver, By.name("to")).sendKeys(mail);
         setValue(By.name("to"), mail);
         setValue(By.name("subjectbox"), subject + Keys.ENTER);
 

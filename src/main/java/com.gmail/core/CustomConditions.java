@@ -26,7 +26,7 @@ public class CustomConditions {
             }
 
             public String toString() {
-                return String.format("\nExpected text of element of list %s by index %d should contain: %s while actual text is: %s", elementsList.get(index).toString(), index, expectedText, elementText);
+                return String.format("\nExpected text of element of list %s \nby index %d\nshould contain: %s\nwhile actual text is: %s", elementsList, index, expectedText, elementText);
             }
         });
     }
@@ -58,7 +58,7 @@ public class CustomConditions {
             }
 
             public String toString() {
-                return String.format("\nExpected texts should contain: %s while actual texts are: %s", Arrays.asList(expectedTexts), actualTexts);
+                return String.format("\nFor list %s\nexpected texts should contain: %s \nwhile actual texts are: %s", elementsList, Arrays.asList(expectedTexts), actualTexts);
             }
         });
     }

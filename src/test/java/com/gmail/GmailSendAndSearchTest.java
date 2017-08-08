@@ -19,23 +19,13 @@ public class GmailSendAndSearchTest extends GmailLogin {
 
     private Mails mails = new Mails(getDriver());
     private Menu menu = new Menu(getDriver());
-
-    @BeforeClass
-    public static void setup() {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("marionette", false);
-        driver = new FirefoxDriver(capabilities);
-        driver.manage().window().maximize();
-    }
-
-    @AfterClass
-    public static void tearDown() {
-        driver.quit();
-    }
+    Gmail gmail = new Gmail(getDriver());
 
     @Test
     public void gmailSendAndSearch() {
-        loginToGmail();
+
+        gmail.visit();
+        gmail.login(TestData.mail, TestData.password);
 
         String subject = Helpers.getUniqueString("Test");
         mails.send(TestData.mail, subject);
