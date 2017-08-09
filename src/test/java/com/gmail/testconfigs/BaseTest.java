@@ -1,4 +1,4 @@
-package com.gmail;
+package com.gmail.testconfigs;
 
 import com.gmail.core.ConciseAPI;
 import org.junit.AfterClass;
@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-public class GmailLogin extends ConciseAPI {
+public class BaseTest extends ConciseAPI {
 
     @BeforeClass
     public static void setup() {
@@ -18,8 +18,8 @@ public class GmailLogin extends ConciseAPI {
     }
 
     @AfterClass
-    public static void tearDown() {
-        driver.quit();
+    public void tearDown() {
+        getDriver().quit();
     }
 
     public static WebDriver driver;

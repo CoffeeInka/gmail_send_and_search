@@ -1,4 +1,4 @@
-package com.gmail.pages;
+package com.gmail.core;
 
 
 import com.gmail.core.ConciseAPI;

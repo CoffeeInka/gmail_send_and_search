@@ -16,7 +16,7 @@ public class CustomConditions {
 
             private WebElement element;
             private String elementText;
-            public List<WebElement> elementsList;
+            private List<WebElement> elementsList;
 
             public WebElement apply(WebDriver driver) {
                 elementsList = driver.findElements(elementsListLocator);
@@ -26,7 +26,7 @@ public class CustomConditions {
             }
 
             public String toString() {
-                return String.format("\nExpected text of element of list %s \nby index %d\nshould contain: %s\nwhile actual text is: %s", elementsList, index, expectedText, elementText);
+                return String.format("\nExpected text of element of list with locator %s \nby index %d\nshould contain: %s\nwhile actual text is: %s", elementsListLocator, index, expectedText, elementText);
             }
         });
     }
@@ -37,11 +37,11 @@ public class CustomConditions {
             throw new IllegalArgumentException("Array of expected texts is empty.");
         }
         return elementExceptionsCatcher(new ExpectedCondition<List<WebElement>>() {
-            public List<String> actualTexts;
-            public List<WebElement> elementsList;
+            private List<String> actualTexts;
+            private List<WebElement> elementsList;
 
             public List<WebElement> apply(WebDriver driver) {
-                actualTexts = new ArrayList<String>();
+                actualTexts = new ArrayList<>();
                 elementsList = driver.findElements(elementsListlocator);
                 for (WebElement element : elementsList) {
                     actualTexts.add(element.getText());
@@ -58,20 +58,18 @@ public class CustomConditions {
             }
 
             public String toString() {
-                return String.format("\nFor list %s\nexpected texts should contain: %s \nwhile actual texts are: %s", elementsList, Arrays.asList(expectedTexts), actualTexts);
+                return String.format("\nFor list with locator %s\nexpected texts should contain: %s \nwhile actual texts are: %s", elementsListlocator, Arrays.asList(expectedTexts), actualTexts);
             }
         });
     }
 
 
-    public static <V> ExpectedCondition<V> elementExceptionsCatcher(final ExpectedCondition<V> condition) {
+    private static <V> ExpectedCondition<V> elementExceptionsCatcher(final ExpectedCondition<V> condition) {
         return new ExpectedCondition<V>() {
             public V apply(WebDriver input) {
                 try {
                     return condition.apply(input);
-                } catch (StaleElementReferenceException e) {
-                    return null;
-                } catch (ElementNotVisibleException e) {
+                } catch (StaleElementReferenceException | ElementNotVisibleException | IndexOutOfBoundsException e) {
                     return null;
                 }
             }
