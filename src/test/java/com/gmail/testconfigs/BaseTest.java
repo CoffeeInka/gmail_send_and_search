@@ -18,8 +18,8 @@ public class BaseTest extends ConciseAPI {
     }
 
     @AfterClass
-    public void tearDown() {
-        getDriver().quit();
+    public static void tearDown() {
+        driver.quit();
     }
 
     public static WebDriver driver;

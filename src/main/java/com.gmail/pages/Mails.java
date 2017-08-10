@@ -14,7 +14,7 @@ public class Mails extends BasePage {
         super(driver);
     }
 
-    By mailList = by("[role=main] .zA");
+    public By mailList = by("[role=main] .zA");
 
     public void send(String mail, String subject) {
         $(byText("COMPOSE")).click();
