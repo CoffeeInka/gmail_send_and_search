@@ -1,17 +1,15 @@
 package com.gmail.core;
 
-
 import org.openqa.selenium.WebDriver;
 
-public class BasePage extends ConciseAPI {
+/**
+ * Created by inna on 10/08/2017.
+ */
+public class BasePage extends ConciseAPI{
 
     public WebDriver driver;
 
-    public BasePage(WebDriver driver) {
+    public BasePage(WebDriver driver){
         this.driver = driver;
-    }
-
-    public WebDriver getDriver() {
-        return driver;
     }
 }

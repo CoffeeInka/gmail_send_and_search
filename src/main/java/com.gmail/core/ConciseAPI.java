@@ -8,9 +8,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
-public abstract class ConciseAPI {
+public class ConciseAPI {
 
-    public abstract WebDriver getDriver();
+    private WebDriver driver;
+
+    public WebDriver getDriver() {
+        return this.driver;
+    }
+
+    public void setDriver(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public WebElement $(By elementLocator) {
         return assertThat(visibilityOfElementLocated(elementLocator));
