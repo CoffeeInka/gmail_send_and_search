@@ -1,21 +1,18 @@
 package com.gmail.pages;
 
-import com.gmail.core.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
-public class Gmail extends BasePage {
+import static com.gmail.core.ConciseAPI.*;
 
-    public Gmail(WebDriver driver) {
-        super(driver);
-    }
+public class Gmail {
 
-    public void visit() {
+    public static void visit() {
         open("http://gmail.com/");
     }
 
-    public void login(String mail, String password) {
+    public static void login(String mail, String password) {
         setValue(By.id("identifierId"), mail + Keys.ENTER);
         setValue(By.name("password"), password + Keys.ENTER);
     }

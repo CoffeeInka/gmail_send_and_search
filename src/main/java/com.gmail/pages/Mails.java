@@ -1,22 +1,18 @@
 package com.gmail.pages;
 
-import com.gmail.core.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
+import static com.gmail.core.ConciseAPI.*;
 import static com.gmail.core.CustomConditions.nthElementHasText;
 import static com.gmail.core.CustomConditions.textsOf;
 
-public class Mails extends BasePage {
+public class Mails {
 
-    public Mails(WebDriver driver) {
-        super(driver);
-    }
+    public static By mailList = by("[role=main] .zA");
 
-    public By mailList = by("[role=main] .zA");
-
-    public void send(String mail, String subject) {
+    public static void send(String mail, String subject) {
         $(byText("COMPOSE")).click();
 
         $(byText("Recipients")).click();
@@ -26,15 +22,15 @@ public class Mails extends BasePage {
         $(byText("Send")).click();
     }
 
-    public void assertMail(int index, String text) {
+    public static void assertMail(int index, String text) {
         assertThat(nthElementHasText(mailList, index, text));
     }
 
-    public void searchInInboxBy(String subject) {
+    public static void searchInInboxBy(String subject) {
         setValue(By.name("q"), "in:inbox subject:" + subject + Keys.ENTER);
     }
 
-    public void assertMails(String... texts) {
+    public static void assertMails(String... texts) {
         assertThat(textsOf(mailList, texts));
     }
 }

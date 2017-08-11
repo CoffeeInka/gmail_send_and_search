@@ -10,46 +10,46 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 
 public class ConciseAPI {
 
-    private WebDriver driver;
+    private static WebDriver driver;
 
-    public WebDriver getDriver() {
-        return this.driver;
+    public static WebDriver getDriver() {
+        return ConciseAPI.driver;
     }
 
-    public void setDriver(WebDriver driver) {
-        this.driver = driver;
+    public static void setDriver(WebDriver driver) {
+        ConciseAPI.driver = driver;
     }
 
-    public WebElement $(By elementLocator) {
+    public static WebElement $(By elementLocator) {
         return assertThat(visibilityOfElementLocated(elementLocator));
     }
 
-    public <V> V assertThat(ExpectedCondition<V> condition, long timeout) {
+    public static <V> V assertThat(ExpectedCondition<V> condition, long timeout) {
         return new WebDriverWait(getDriver(), timeout).until(condition);
     }
 
-    public <V> V assertThat(ExpectedCondition<V> condition) {
+    public static <V> V assertThat(ExpectedCondition<V> condition) {
         return assertThat(condition, Configuration.timeout);
     }
 
-    public void setValue(By elementLocator, String text) {
+    public static void setValue(By elementLocator, String text) {
         $(elementLocator).clear();
         $(elementLocator).sendKeys(text);
     }
 
-    public By byText(String text) {
+    public static By byText(String text) {
         return By.xpath(String.format("//*[text()='%s']", text));
     }
 
-    public By byCss(String cssSelector) {
+    public static By byCss(String cssSelector) {
         return By.cssSelector(cssSelector);
     }
 
-    public By by(String cssSelector) {
+    public static By by(String cssSelector) {
         return byCss(cssSelector);
     }
 
-    public void open(String url) {
+    public static void open(String url) {
         getDriver().get(url);
     }
 }

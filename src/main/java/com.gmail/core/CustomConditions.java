@@ -69,6 +69,7 @@ public class CustomConditions {
             public V apply(WebDriver input) {
                 try {
                     return condition.apply(input);
+                    //Webdriver exc, index
                 } catch (StaleElementReferenceException | ElementNotVisibleException | IndexOutOfBoundsException e) {
                     return null;
                 }
