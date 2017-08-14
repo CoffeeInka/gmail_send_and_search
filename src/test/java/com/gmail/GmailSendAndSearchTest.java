@@ -1,5 +1,6 @@
 package com.gmail;
 
+import com.gmail.core.Configuration;
 import com.gmail.core.Helpers;
 import com.gmail.pages.Gmail;
 import com.gmail.pages.Menu;
@@ -10,6 +11,10 @@ import org.junit.*;
 
 
 public class GmailSendAndSearchTest extends BaseTest {
+
+    {
+        Configuration.timeout = 25;
+    }
 
     @Test
     public void gmailSendAndSearch() {

@@ -12,7 +12,7 @@ public class CustomConditions {
 
     public static ExpectedCondition<WebElement> nthElementHasText(final By elementsListLocator, final int index, final String expectedText) {
 
-        return elementExceptionsCatcher(new ExpectedCondition<WebElement>() {
+        return new ExpectedCondition<WebElement>() {
 
             private WebElement element;
             private String elementText;
@@ -28,7 +28,7 @@ public class CustomConditions {
             public String toString() {
                 return String.format("\nExpected text of element of list with locator %s \nby index %d\nshould contain: %s\nwhile actual text is: %s", elementsListLocator, index, expectedText, elementText);
             }
-        });
+        };
     }
 
 
@@ -36,7 +36,7 @@ public class CustomConditions {
         if (expectedTexts.length == 0) {
             throw new IllegalArgumentException("Array of expected texts is empty.");
         }
-        return elementExceptionsCatcher(new ExpectedCondition<List<WebElement>>() {
+        return new ExpectedCondition<List<WebElement>>() {
             private List<String> actualTexts;
             private List<WebElement> elementsList;
 
@@ -60,25 +60,25 @@ public class CustomConditions {
             public String toString() {
                 return String.format("\nFor list with locator %s\nexpected texts should contain: %s \nwhile actual texts are: %s", elementsListlocator, Arrays.asList(expectedTexts), actualTexts);
             }
-        });
-    }
-
-
-    private static <V> ExpectedCondition<V> elementExceptionsCatcher(final ExpectedCondition<V> condition) {
-        return new ExpectedCondition<V>() {
-            public V apply(WebDriver input) {
-                try {
-                    return condition.apply(input);
-                } catch (StaleElementReferenceException | ElementNotVisibleException | IndexOutOfBoundsException e) {
-                    return null;
-                }
-            }
-
-            public String toString() {
-                return condition.toString();
-            }
         };
     }
+
+
+//    private static <V> ExpectedCondition<V> elementExceptionsCatcher(final ExpectedCondition<V> condition) {
+//        return new ExpectedCondition<V>() {
+//            public V apply(WebDriver input) {
+//                try {
+//                    return condition.apply(input);
+//                } catch (StaleElementReferenceException | ElementNotVisibleException | IndexOutOfBoundsException e) {
+//                    return null;
+//                }
+//            }
+//
+//            public String toString() {
+//                return condition.toString();
+//            }
+//        };
+//    }
 
 
 }

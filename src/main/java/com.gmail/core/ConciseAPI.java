@@ -6,11 +6,8 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
@@ -30,16 +27,15 @@ public class ConciseAPI {
         return assertThat(visibilityOfElementLocated(elementLocator));
     }
 
-    public static <V> V assertThat(Function<? super WebDriver, V> condition, long timeout) {
-        //return new WebDriverWait(getDriver(), timeout).until(condition);
-        return new FluentWait(getDriver())
+    public static <V> V assertThat(ExpectedCondition<V> condition, long timeout, long polling) {
+        return new FluentWait<>(getDriver())
                 .withTimeout(timeout, TimeUnit.SECONDS)
-                .pollingEvery(200, TimeUnit.MILLISECONDS)
+                .pollingEvery(polling, TimeUnit.MILLISECONDS)
                 .ignoring(WebDriverException.class, IndexOutOfBoundsException.class).until(condition);
     }
 
     public static <V> V assertThat(ExpectedCondition<V> condition) {
-        return assertThat(condition, Configuration.timeout);
+        return assertThat(condition, Configuration.timeout, Configuration.polling);
     }
 
     public static void setValue(By elementLocator, String text) {
