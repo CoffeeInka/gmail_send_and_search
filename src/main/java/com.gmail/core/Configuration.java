@@ -2,7 +2,9 @@ package com.gmail.core;
 
 public class Configuration {
 
+    //default interval for assertThat, in seconds
     public static long timeout = 4;
-    public static long polling = 200;
+    //interval between checks inside assertThat, in milliseconds
+    public static long pollingInterval = 100;
 
 }

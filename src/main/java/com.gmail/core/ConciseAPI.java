@@ -35,7 +35,7 @@ public class ConciseAPI {
     }
 
     public static <V> V assertThat(ExpectedCondition<V> condition) {
-        return assertThat(condition, Configuration.timeout, Configuration.polling);
+        return assertThat(condition, Configuration.timeout, Configuration.pollingInterval);
     }
 
     public static void setValue(By elementLocator, String text) {
